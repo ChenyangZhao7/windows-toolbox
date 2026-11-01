@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# 本机配置与密钥（API Key 虽已加密，仍不入库）
+config.json
+*.local.json
+.env
+
+# 运行产生的缓存与日志
+appx_cache.json
+selftest.json
+probetoggle.json
+logs/
+*.log
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+desktop.ini
+Thumbs.db
