@@ -1,46 +1,48 @@
-# 系统工具箱 (Windows Toolbox)
+# Windows Toolbox
 
-Windows 上自用的一个小工具箱，整合了四个小工具，用一个 Tkinter 窗口管理。
+**English** | [中文](README.zh-CN.md)
 
-## 功能
+A small Windows toolbox for personal use: four utilities behind one Tkinter window.
 
-| 页签 | 作用 | 后端脚本 |
+## What it does
+
+| Tab | Purpose | Backing script |
 |---|---|---|
-| 🧹 整理桌面 | 按后缀归类桌面文件，删掉被抽空的文件夹 | `DesktopOrganizer/organize_desktop.py` |
-| 💽 磁盘体检 | 逐层查看磁盘空间分布 | `DiskCheckup/disk_checkup.py` |
-| 📦 软件管家 | 列出已安装软件，可用 DeepSeek 查询用途、调用官方卸载程序 | `SoftQuery/soft_query.py` |
-| 🌀 风扇控制 | 联想 WMI 风扇接口：全速开关 + 转速读取 | `FanControl/fan_control.py` |
+| 🧹 Tidy desktop | Sort desktop files by extension, remove folders left empty | `DesktopOrganizer/organize_desktop.py` |
+| 💽 Disk checkup | Walk the disk and show where space goes | `DiskCheckup/disk_checkup.py` |
+| 📦 Software manager | List installed software, ask DeepSeek what a program is for, launch the official uninstaller | `SoftQuery/soft_query.py` |
+| 🌀 Fan control | Lenovo WMI fan interface: full-speed switch and RPM readout | `FanControl/fan_control.py` |
 
-每个脚本也能单独双击运行，带 `--selftest` 等调试入口（见各文件头部说明）。
+Each script also runs on its own by double-clicking, with `--selftest` and other debug entry points (described at the top of each file).
 
-## 目录结构
+## Layout
 
 ```
-Toolbox/toolbox.py            主窗口，动态加载下面四个模块
-DesktopOrganizer/             桌面整理
-DiskCheckup/                  磁盘体检
-SoftQuery/                    软件管家（可选 DeepSeek API）
-FanControl/                   联想风扇控制
+Toolbox/toolbox.py            main window; loads the four modules below
+DesktopOrganizer/             desktop tidying
+DiskCheckup/                  disk space checkup
+SoftQuery/                    software manager (optional DeepSeek API)
+FanControl/                   Lenovo fan control
 ```
 
-## 运行
+## Running it
 
 ```
 pythonw Toolbox\toolbox.py
 ```
 
-要求 Windows + Python 3.10 以上（自带 tkinter）。风扇控制需要管理员权限，非管理员时页面会提示提权。
+Windows and Python 3.10+ (tkinter is included). Fan control needs administrator rights; without them the tab explains how to elevate.
 
-## 说明与注意事项
+## Notes and caveats
 
-- **整理桌面**：只处理桌面下「普通」文件夹里的文档/图片/视频/音频/压缩包，按后缀归类。
-  会跳过 `node_modules`/`venv`/`build` 等依赖目录、前两层含 exe/dll 的软件和游戏安装目录，
-  以及它自己生成的 `png`/`pdf`/`docx` 之类的归类文件夹。重复运行不会把文件来回搬。
-  始终不动快捷方式（.lnk）、隐藏文件和 `desktop.ini`/`Thumbs.db`。
-- **磁盘体检**：首次扫描大盘（如 C:）需要几十秒，同一次运行里不会重复扫描。
-- **软件管家**：API Key 用 Windows DPAPI 加密保存在本机 `SoftQuery/config.json`，不会进版本库。
-- **风扇控制**：依赖联想 `root\WMI\LENOVO_FAN_METHOD` 接口，非联想机型会读取失败。
+- **Tidy desktop**: only touches documents, images, video, audio and archives in plain folders on the desktop, sorted by extension.
+  It skips dependency folders such as `node_modules`/`venv`/`build`, software and game installs whose first two levels contain exe/dll files,
+  and the `png`/`pdf`/`docx`-style folders it creates itself. Running it twice does not shuffle files back and forth.
+  Shortcuts (.lnk), hidden files, `desktop.ini` and `Thumbs.db` are never touched.
+- **Disk checkup**: the first scan of a large drive (C:, say) takes tens of seconds; the same run does not scan twice.
+- **Software manager**: the API key is encrypted with Windows DPAPI in `SoftQuery/config.json` on this machine and never enters the repository.
+- **Fan control**: depends on Lenovo's `root\WMI\LENOVO_FAN_METHOD` interface; on other machines the read fails.
 
 ## License
 
-未指定。如需开源协议请自行补充。
+MIT
